@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Witaj na stronie głównej</title>
+</head>
+<body>
+    <h1>Witaj, Adminie!</h1>
+    <p>Jako admin możesz robić wszystko co Ci się podba.<br></p>
+    <p>Kliknij tutaj, żeby przejść do panelu administratora:<br> <a href="/admin/">Przejdź do panelu administratora</a></p>
+    <p><a href = "/manage/"/> Przejdź do panelu edycji.</a></p>
+    <h1>Dostępne obrazki:</h1>
+    {% if image_list %}
+    <ul>
+    {% for image in image_list %}
+        <li><a href="/{{ image.id }}/">{{image.id}}. {{  image.image_name }}</a></li>
+    {% endfor %}
+    </ul>
+    {% else %}
+        <p>No images are available.</p>
+    {% endif %}
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+{% comment %} {% extends "base_generic.html" %} {% endcomment %}
+
+{% block content %}
+{% for image in image_list %}
+  <h2>Lista obrazków SVG</h2>
+  <ul>
+    {% for rect in image.rectangles.all %}
+      <li>
+        X: {{ rect.x }}, Y: {{ rect.y }}, Szerokość: {{ rect.width }}, Wysokość: {{ rect.height }}, Wypełnienie: {{ rect.fill }}
+      </li>
+    {% empty %}
+      <li>Brak prostokątów.</li>
+    {% endfor %}
+  </ul>
+  
+  <!-- Rysowanie obrazka SVG -->
+  <svg width="{{ image.width }}" height="{{ image.height }}" viewBox="{{ image.viewbox }}" version="{{ image.version }}" xmlns="{{ image.xmlns }}">
+    {% for rect in image.rectangles.all %}
+      <rect x="{{ rect.x }}" y="{{ rect.y }}" width="{{ rect.width }}" height="{{ rect.height }}" fill="{{ rect.fill }}" />
+    {% endfor %}
+  </svg>
+  
+    <div>
+      <h3>Obrazek SVG ID: {{ image.id }}</h3>
+      <p>Szerokość: {{ image.width }}</p>
+      <p>Wysokość: {{ image.height }}</p>
+      <p>Viewbox: {{ image.viewbox }}</p>
+      <p>Wersja: {{ image.version }}</p>
+      <p>XMLNS: {{ image.xmlns }}</p>
+      <h4>Prostokąty:</h4>
+    </div>
+  {% empty %}
+    <p>Brak obrazków SVG.</p>
+  {% endfor %}
+{% endblock %}
